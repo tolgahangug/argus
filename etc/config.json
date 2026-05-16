@@ -1,0 +1,17 @@
+{
+  "vps_name": "server2",
+  "telegram": {
+    "bot_token": "8673003552:AAEypQjSzmDTSAuGxtpIOIcs9Av9fOPpbBM",
+    "chat_id": "8319975554"
+  },
+  "agents": [
+    {
+      "name": "Watson",
+      "workspace_path": "/home/user/.openclaw/workspace",
+      "container_name": null
+    }
+  ],
+  "hub": {
+    "yellow_dedup_minutes": 30
+  }
+}
