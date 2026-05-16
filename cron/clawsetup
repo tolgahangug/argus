@@ -1,13 +1,12 @@
 # ClawSetup V3 - Cron Jobs
 # Copy to: /etc/cron.d/clawsetup
-
 # Observers - run every minute
 * * * * * root /opt/clawsetup/bin/observer-health.sh
 * * * * * root /opt/clawsetup/bin/observer-security.sh
 * * * * * root /opt/clawsetup/bin/observer-workspace.sh
-
+# Token cost monitor - runs every 15 minutes
+*/15 * * * * root /opt/clawsetup/bin/observer-tokens.sh
 # Hub processor - runs every minute, sends queued alerts
 * * * * * root /opt/clawsetup/bin/hub-process.sh
-
 # Daily summary - 8:00 AM UTC
 0 8 * * * root /opt/clawsetup/bin/hub-daily.sh
