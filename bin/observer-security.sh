@@ -24,17 +24,17 @@ if [ "$CURRENT_LINE" -gt "$LAST_LINE" ]; then
     NEW_LOGINS=$(echo "$NEW_LINES" | grep "Accepted")
     if [ -n "$NEW_LOGINS" ]; then
         IP=$(echo "$NEW_LOGINS" | head -1 | grep -oP 'from \K\S+' || echo "unknown")
-        USER=$(echo "$NEW_LOGINS" | head -1 | grep -oP 'for \K\S+' || echo "unknown")
-        /opt/clawsetup/bin/emit-event.sh "yellow" "SECURITY" "${VPS_NAME} | SSH login: ${USER} from ${IP}"
-        log "SECURITY: SSH login - $USER from $IP"
+        /opt/clawsetup/bin/emit-event.sh "yellow" "SECURITY" "${VPS_NAME}
+SSH login: Tolga from ${IP}"
+        log "SECURITY: SSH login - Tolga from $IP"
     fi
 
     # Tailscale SSH login (pam_unix session opened)
     TAILSCALE_LOGINS=$(echo "$NEW_LINES" | grep "pam_unix(login:session): session opened for user" | grep -v "for user root(")
     if [ -n "$TAILSCALE_LOGINS" ]; then
-        USER=$(echo "$TAILSCALE_LOGINS" | head -1 | grep -oP 'for user \K\S+(?=\()' || echo "unknown")
-        /opt/clawsetup/bin/emit-event.sh "yellow" "SECURITY" "${VPS_NAME} | Tailscale login: ${USER}"
-        log "SECURITY: Tailscale login - $USER"
+        /opt/clawsetup/bin/emit-event.sh "yellow" "SECURITY" "${VPS_NAME}
+Tailscale login: Tolga"
+        log "SECURITY: Tailscale login - Tolga"
     fi
 
     # Root login refused (brute force attempt) - info only, no Telegram
@@ -42,7 +42,8 @@ if [ "$CURRENT_LINE" -gt "$LAST_LINE" ]; then
     if [ -n "$ROOT_ATTEMPTS" ]; then
         IP=$(echo "$ROOT_ATTEMPTS" | head -1 | grep -oP 'FROM \K\S+' || echo "unknown")
         COUNT=$(echo "$ROOT_ATTEMPTS" | wc -l)
-        /opt/clawsetup/bin/emit-event.sh "info" "SECURITY" "${VPS_NAME} | Root attack: ${COUNT}x from ${IP}"
+        /opt/clawsetup/bin/emit-event.sh "info" "SECURITY" "${VPS_NAME}
+Root attack: ${COUNT}x from ${IP}"
         log "SECURITY: Root attack - ${COUNT}x from $IP"
     fi
 fi
