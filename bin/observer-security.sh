@@ -21,7 +21,7 @@ if [ "$CURRENT_LINE" -gt "$LAST_LINE" ]; then
     NEW_LINES=$(sed -n "$((LAST_LINE + 1)),${CURRENT_LINE}p" "$LOG_FILE")
 
     # Standard SSH accepted login
-    NEW_LOGINS=$(echo "$NEW_LINES" | grep "Accepted")
+    NEW_LOGINS=$(echo "$NEW_LINES" | grep "Accepted password\|Accepted publickey")
     if [ -n "$NEW_LOGINS" ]; then
         IP=$(echo "$NEW_LOGINS" | head -1 | grep -oP 'from \K\S+' || echo "unknown")
         /opt/clawsetup/bin/emit-event.sh "yellow" "SECURITY" "${VPS_NAME}
