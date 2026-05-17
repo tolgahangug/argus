@@ -29,14 +29,6 @@ SSH login: Tolga from ${IP}"
         log "SECURITY: SSH login - Tolga from $IP"
     fi
 
-    # Tailscale SSH login (pam_unix session opened)
-    TAILSCALE_LOGINS=$(echo "$NEW_LINES" | grep "pam_unix(login:session): session opened for user" | grep -v "for user root(")
-    if [ -n "$TAILSCALE_LOGINS" ]; then
-        /opt/clawsetup/bin/emit-event.sh "yellow" "SECURITY" "${VPS_NAME}
-Tailscale login: Tolga"
-        log "SECURITY: Tailscale login - Tolga"
-    fi
-
     # Root login refused (brute force attempt) - info only, no Telegram
     ROOT_ATTEMPTS=$(echo "$NEW_LINES" | grep "ROOT LOGIN REFUSED FROM")
     if [ -n "$ROOT_ATTEMPTS" ]; then
